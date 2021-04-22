@@ -1,0 +1,83 @@
+<html>
+	<head>
+		<title>42 blackhole seeker</title>
+		<link rel="icon" type="image/png" href="icon.png" />
+		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	</head>
+	<style>
+		body {
+			background-color: #222222;
+			background: url('bg.png') no-repeat center fixed; 
+			-webkit-background-size: cover;
+			background-size: cover;
+		}
+		p {
+			color: white;
+		}
+		hr {
+			margin-top: 1rem;
+			margin-bottom: 1rem;
+			border: 0;
+		}
+		.blackdiv {
+			background-color: #222222cc;
+		}
+	</style>
+	<body>
+		<div class="blackdiv align-middle p-3">
+			<p>Logged as <%= login %> ( <%= token %> )</p>
+			<% if (json.length > 0) { %>
+				<p>There are <%= json.length %> students in this list</p>
+				<p>Students shown here are:<p>
+				<p>- From 42 Paris<p>
+				<p>- Active (One project validated in the last 3 month)<p>
+				<p>- Sorted by blackhole date<p>
+			<% } else { %>
+				<p>The list of students is being updated...</p>
+				<p>Please come back later !</p>
+			<% } %>
+		</div>
+		<hr/>
+		<% json.map((j) => {
+			const date = new Date(j.blackholed_at);
+			const year = date.getFullYear();
+			let month = date.getMonth() + 1;
+			let day = date.getDate();
+			if (day < 10) {
+				day = '0' + day;
+			}
+			if (month < 10) {
+				month = '0' + month;
+			}
+			const now = Date.now();
+			const diffTime = Math.abs(now - date.getTime());
+			const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) - 1;
+			let diffDaysMessage = '';
+			if (diffDays == 0) {
+				diffDaysMessage = 'A few hours left';
+			} else if (diffDays < 0) {
+				diffDaysMessage = 'Blackholed';
+			} else {
+				diffDaysMessage = diffDays + ' days left';
+			} %>
+			<div class="container blackdiv p-3">
+				<div class="row">
+					<div class="col-sm my-auto">
+						<div style="height: 200px; width: 150px;">
+							<img style="height: 100%; width: 100%; object-fit: cover" src="https://cdn.intra.42.fr/users/medium_<%= j.login %>.jpg">
+						</div>
+					</div>
+					<div class="col-sm my-auto"><p>ID</p><p><%= j.id %></p></div>
+					<div class="col-sm my-auto"><p>LOGIN</p><p><%= j.login %></p></div>
+					<div class="col-sm my-auto"><p>BLACKHOLE DATE</p><p><%= day %>/<%= month %>/<%= year %></p><p><%= diffDaysMessage %></p></div>
+					<div class="col-sm my-auto"><a class="m-3 p-3 btn btn-primary" role="button" href="https://profile.intra.42.fr/users/<%= j.login %>" target="_blank">Link to intra</a></div>
+				</div>
+			</div>
+			<hr/>
+		<% }); %>
+		</body>
+		<script>
+			history.pushState('page', 'caption', '/');
+		</script>
+</html>

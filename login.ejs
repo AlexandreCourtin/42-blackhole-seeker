@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<title>42 blackhole seeker</title>
+		<link rel="icon" type="image/png" href="icon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	</head>
+	<style>
+		body {
+			background-color: #222222;
+			background: url('bg.png') no-repeat center fixed; 
+			-webkit-background-size: cover;
+			background-size: cover;
+			overflow: hidden;
+		}
+		h1 {
+			font-size: 60;
+			color: white;
+		}
+		p {
+			color: white;
+		}
+		a {
+			color: mediumturquoise;
+		}
+		.blackdiv {
+			background-color: #222222cc;
+		}
+	</style>
+	<body>
+		<div class="row h-100">
+			<div class="col-sm-12 my-auto">
+				<div class="blackdiv align-middle">
+					<h1 class="d-flex justify-content-center">42 Blackhole Seeker</h1>
+					<div class="d-flex justify-content-center">
+						<p>Made by&nbsp</p>
+						<a href="https://profile.intra.42.fr/users/acourtin" target="_blank">acourtin</a>
+					</div>
+					<div class="text-center">
+						<a class="m-3 p-3 btn btn-primary" role="button" href="https://api.intra.42.fr/oauth/authorize?client_id=<%= clientId %>&redirect_uri=<%= redirectUri %>&response_type=code">login</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
